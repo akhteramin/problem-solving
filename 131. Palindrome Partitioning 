@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<string>> result;
+    bool isPalindrome(string str){
+        for(auto i=0;i<str.length()/2;i++){
+            if(str[i]!=str[str.length()-i-1])
+                return false;
+        }
+        return true;
+    }
+    void helper(int index, vector<string> &curr_partition,string s){
+        if(index>=s.length()){
+            result.push_back(curr_partition);
+            return;
+        }
+        for(auto i=index;i<s.length();i++){
+            string curr_str = s.substr(index,i-index+1);
+            if(isPalindrome(curr_str)){
+                curr_partition.push_back(curr_str);
+                helper(i+1,curr_partition,s);
+                curr_partition.pop_back();
+                
+            }
+        }
+        
+    }
+    vector<vector<string>> partition(string s) {
+        
+        vector<string> curr_partition;
+        
+        helper(0, curr_partition,s);
+        
+        return result;
+    }
+};

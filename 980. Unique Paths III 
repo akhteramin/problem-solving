@@ -1,0 +1,97 @@
+class Solution {
+public:
+    vector<vector<pair<int,int>>> result;
+    bool checkAlltravelled(vector<vector<int>>& grid){
+        for(auto i=0;i<grid.size();i++){
+            for(auto j=0;j<grid[i].size();j++)
+            {
+                if(grid[i][j]==0)
+                    return false;
+            }
+        }
+        return true;
+    }
+    void dfs(int i, int j, vector<vector<int>>& grid, vector<pair<int,int>> & path){
+        
+        if(grid[i][j]==-1)
+            return;
+        // && checkAlltravelled(grid)
+        if(grid[i][j]==2 && checkAlltravelled(grid)){
+            path.push_back(make_pair(i,j));
+            // for(auto i=0;i<path.size();i++){
+            //     cout<<path[i].first<<" "<<path[i].second<<endl;
+            // }
+            // cout<<endl;
+            result.push_back(path);
+            return;
+        }
+        if(grid[i][j]==0 ){
+            // cout<<i<<" "<<j<<" "<<result.size()<<endl;
+            path.push_back(make_pair(i,j));
+            grid[i][j]=5;
+            if(i<grid.size()-1){
+                dfs(i+1, j, grid, path);
+            }
+            if(i>0){
+                dfs(i-1,j, grid, path);
+
+            }
+            if(j<grid[0].size()-1){
+
+                dfs(i, j+1, grid, path);
+
+            }
+            if(j>0){
+                dfs(i, j-1, grid, path);
+            }
+            grid[i][j]=0;
+            path.pop_back();
+        }
+        
+        
+    }
+    int uniquePathsIII(vector<vector<int>>& grid) {
+        pair<int,int> start;
+        vector<pair<int,int>> path;
+        for(auto i=0;i<grid.size();i++){
+            for(auto j=0;j<grid[i].size();j++)
+            {
+                if(grid[i][j]==1)
+                    start = make_pair(i,j);
+            }
+        }
+        // path.push_back(start);
+        int i=start.first, j =start.second;
+        path.push_back(make_pair(i,j));
+        if(i<grid.size()-1){
+
+            
+            dfs(i+1, j, grid, path);
+            
+
+        }
+        if(i>0){
+
+           
+            dfs(i-1,j, grid, path);
+            
+
+        }
+        if(j<grid[0].size()-1){
+
+            
+            dfs(i, j+1, grid, path);
+           
+
+        }
+        if(j>0){
+
+           
+            dfs(i, j-1, grid, path);
+            
+
+        }
+        path.pop_back();
+        return result.size();
+    }
+};

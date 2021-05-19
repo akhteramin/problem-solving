@@ -1,0 +1,42 @@
+class Solution {
+public:
+    unordered_map<string,bool> map;
+    bool wordBreak(string s, vector<string>& wordDict) 
+    {
+        return wordBreakUtil(s,wordDict,s.size());
+    }
+    bool wordBreakUtil(string s, vector<string>& wordDict,int n)
+    {
+        if(map.find(s)!=map.end())
+            return map[s];
+        for(int i=1;i<=n;i++)
+        {
+            string prefix=s.substr(0,i);
+            if(DictionaryContains(prefix,wordDict))
+            {
+               if(i==n)
+               {
+                   map.insert({s,true});
+                   return true;
+               }
+                   
+               if(wordBreakUtil(s.substr(i,n-i),wordDict,n-i))
+               {
+                   map.insert({s,true});
+                   return true;
+               }
+                   
+            }
+        }
+        map.insert({s,false});
+        return false;
+    }
+    bool DictionaryContains(string s, vector<string>& wordDict)
+    {
+        for(auto word : wordDict)
+            if(word.compare(s)==0)
+                return true;
+        
+        return false;
+    }
+};

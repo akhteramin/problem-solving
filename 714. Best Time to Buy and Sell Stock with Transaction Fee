@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices, int fee) {
+        int ssp =0, bbp = -prices[0];
+        for(auto i=0;i<prices.size();i++){
+            //sell stage
+            ssp = max(ssp, bbp + prices[i]-fee);
+            //buy stage
+            bbp = max(bbp, ssp-prices[i]);
+        }
+        return ssp;
+    }
+};

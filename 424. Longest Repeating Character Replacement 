@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        // i and j are two pointers
+        // need maxCharCount -> count of char occuring max number of times in our substr
+        int window_start=0,maxLen=0, maxCount=0;
+        vector<int> charMap(26, 0);
+        
+        for(int window_end=0;window_end<size(s);window_end++){
+            // increment the count for curr char
+            charMap[s[window_end]-'A']++;
+            // get the maxCount
+            maxCount = max(maxCount, charMap[s[window_end]-'A']);
+            // length of substr - maxCount shouldn't be greater than K
+            if(window_end-window_start+1 - maxCount > k){
+                charMap[s[window_start]-'A']--;
+                window_start++;                
+            }
+            
+            maxLen = max(maxLen, window_end-window_start+1);
+        }        
+        
+        return maxLen;
+    }
+};

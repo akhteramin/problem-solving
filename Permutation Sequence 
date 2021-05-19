@@ -1,0 +1,37 @@
+class Solution {
+public:
+
+
+    vector<string> result;
+    bool helper(string &data, int index, string curr_str, int n, int k){
+        if(curr_str.length()>=n){
+            result.push_back(curr_str);
+            if(result.size()==k)
+                return true;
+            return false;
+        }
+        
+        for(auto i=0;i<data.length();i++){
+            // if(find(curr_str.begin(),curr_str.end(),data[i])==curr_str.end()){
+            string temp_str = data;
+            temp_str.erase(i,1);
+            if(helper(temp_str, i, curr_str+data[i],n,k))
+                return true;
+                
+            // }
+            
+        }
+        return false;
+    }
+    string getPermutation(int n, int k) {
+        string data;
+        for(auto i=1;i<=n;i++){
+            data+='0'+i;
+        }
+        
+        string curr_str;
+        helper(data, 0, curr_str,n,k);
+     
+        return result[k-1];
+    }
+};

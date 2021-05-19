@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool checkIfPangram(string sentence) {
+        set<char> char_set;
+        for(auto i=0;i<sentence.length();i++){
+            char_set.insert(sentence[i]);
+        }
+        if(char_set.size()==26)
+            return true;
+        return false;
+        
+    }
+};

@@ -1,0 +1,39 @@
+class Solution {
+public:
+    
+    
+    vector<bool> camelMatch(vector<string>& queries, string pattern) {
+        vector<bool> result;
+        for(string str:queries){
+            if(pattern.length()>str.length()){
+                result.push_back(false);
+                continue;
+            }
+            int i=0, flag=true;
+            for(char ch:str){
+                if(ch==pattern[i])
+                {
+                    i++;
+                }
+                else if(ch-'a'<0 && i>=pattern.length()){
+                    flag=false;
+                    break;
+                }
+                else if(ch-'a'<0 && ch!=pattern[i]){
+                    flag=false;
+                    break;
+                }
+            }
+            if(i<pattern.length() || !flag)
+            {
+                result.push_back(false);
+            }
+            else
+            {
+                result.push_back(flag);
+            }
+            
+        }
+        return result;
+    }
+};

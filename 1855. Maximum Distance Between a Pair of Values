@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxDistance(vector<int>& nums1, vector<int>& nums2) {
+        int result=0;
+        int m=nums1.size()-1,n=nums2.size()-1;
+        while(m>=0 && n>=0){
+            if(nums2[n]>=nums1[m]){
+                result=max(result,n-m);
+                m--;
+            }
+            else{
+                n--;
+            }
+                
+        }
+ 
+        return result;
+    }
+};

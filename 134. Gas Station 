@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        for(auto start=0;start<gas.size();start++){
+            int current=start+1;
+            int current_gas=gas[start];
+            if(current_gas<cost[start])
+                continue;
+            while(current%gas.size()!=start){
+                
+                current_gas = current_gas-cost[(current-1)%gas.size()]+gas[current%gas.size()];
+                // cout<<"inner"<<current_gas<<" "<<cost[current%gas.size()]<<endl;
+                if(current_gas<cost[current%gas.size()])
+                    break;
+                current++;
+            }
+            if(start == current%gas.size())
+                return start;
+        }
+        return -1;
+    }
+};

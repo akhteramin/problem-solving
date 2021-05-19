@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<string> final_result;
+    bool checkValidity(string str, string constructed_str){
+        for(auto i=0;i<constructed_str.length();i++){
+            if(str[i]!=constructed_str[i])
+                return false;
+        }
+        return true;
+        
+    }
+    void helper(string s, vector<string>& wordDict, int index, string curr_string, string &final_string){
+        if(curr_string==s){
+            
+            string final_str;
+            
+            final_result.push_back(final_string);
+           
+            return;
+        }
+        
+        for(auto i=0;i<wordDict.size();i++){
+            
+            string temp_str = curr_string;
+            string temp_str2 = final_string;
+            curr_string+=wordDict[i];
+            final_string+=" "+wordDict[i];
+            // word_index.push_back(i);
+            if(checkValidity(s, curr_string)){
+                
+                helper(s,wordDict, i,curr_string, final_string);
+                
+            }
+            // word_index.pop_back();
+            curr_string =  temp_str;
+            final_string = temp_str2;
+        }
+    }
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        for(auto i=0;i<wordDict.size();i++){
+            string curr_str = wordDict[i];
+            vector<int> word_index;
+            if(checkValidity(s, curr_str)){
+                // word_index.push_back(i);
+                helper(s,wordDict, i,curr_str,curr_str);
+                // word_index.pop_back();
+            }
+        }
+        return final_result;
+    }
+};

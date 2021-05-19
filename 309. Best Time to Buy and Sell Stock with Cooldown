@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int length = prices.size();
+        int bbp[length];
+        int ssp[length];
+        fill_n(bbp,length,0);
+        fill_n(ssp,length,0);
+        bbp[0]=-prices[0];
+        for(auto i=1;i<prices.size();i++){
+           
+            ssp[i]=max(ssp[i-1],prices[i]+bbp[i-1]);
+            
+            if(i-2>=0){
+                bbp[i]=max(bbp[i-1],ssp[i-2]-prices[i]);
+            }
+            else{
+                 bbp[i]=max(bbp[i-1],-prices[i]);
+            }
+            
+            // cout<<ssp[i]<<endl;
+        }
+        return ssp[prices.size()-1];
+    }
+};

@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> result;
+    void helper(vector<int> &curr_path,vector<vector<int>>& graph, int index){
+        if(curr_path[curr_path.size()-1]==graph.size()-1)
+        {
+            result.push_back(curr_path);
+            return;
+        }
+        
+        for(auto j=0;j<graph[index].size();j++){
+            curr_path.push_back(graph[index][j]);
+            helper(curr_path, graph, graph[index][j]);
+            curr_path.pop_back();
+        }
+        
+        
+    }
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<int> curr_path;
+        curr_path.push_back(0);
+        helper(curr_path, graph, 0);
+        
+        return result;
+    }
+};

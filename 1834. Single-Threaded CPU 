@@ -1,0 +1,32 @@
+class Solution{
+public:
+    vector <int> getOrder(vector<vector<int>>& a){
+        for(auto i=0;i<a.size();i++){
+            a[i].push_back(i);
+        }
+        sort(a.begin(),a.end());
+        vector<int> ans;
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+        
+        int idx=0;
+        long long timeline=0;
+        while(idx<a.size()){
+            timeline = a[idx][0];
+            pq.push(make_pair(a[idx][1],a[idx][2]));
+            idx++;
+            while(!pq.empty()){
+                pair<int,int> t = pq.top();
+                pq.pop();
+                ans.push_back(t.second);
+                timeline+=t.first;
+                
+                while(idx<a.size() && timeline>=a[idx][0]){
+                    pq.push(make_pair(a[idx][1],a[idx][2]));
+                    idx++;
+                }
+            }
+        }
+        return ans;
+        
+    }
+};

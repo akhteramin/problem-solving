@@ -1,0 +1,48 @@
+class CombinationIterator {
+public:
+    vector<string> vec;
+    vector<string>:: iterator it;
+    int i=0;
+    void helper(int len, int index, string str, string curr_str){
+        if(len==curr_str.length())
+        {
+            
+            if(find(vec.begin(),vec.end(),curr_str)==vec.end())
+                vec.push_back(curr_str);
+            return;
+        }
+        for(auto i=index;i<str.length();i++){
+            string temp_str =curr_str;
+            curr_str = curr_str + str[i];
+            helper(len,i+1,str,curr_str);
+            curr_str=temp_str;
+        }
+    }
+    CombinationIterator(string characters, int combinationLength) {
+         helper(combinationLength,0,characters,"");
+         sort(vec.begin(),vec.end());
+         it = vec.begin();
+        
+    }
+    
+    string next() {
+        string result =*it;
+        ++it;
+        return result;
+        // return vec[i++];
+    }
+    
+    bool hasNext() {
+        if(it!=vec.end())
+            return true;
+        return false;
+        // return vec.size() > i;
+    }
+};
+
+/**
+ * Your CombinationIterator object will be instantiated and called as such:
+ * CombinationIterator* obj = new CombinationIterator(characters, combinationLength);
+ * string param_1 = obj->next();
+ * bool param_2 = obj->hasNext();
+ */

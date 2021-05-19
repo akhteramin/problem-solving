@@ -1,0 +1,57 @@
+class Solution {
+public:
+    typedef struct node{
+        struct node* child[26];
+        bool isComplete=false;
+    }Node;
+     Node *root;
+    string search(string word){
+        Node *current=root;
+        string match_word="";
+        for(char ch:word){
+            int pos = ch-'a';
+            if(current->child[pos]==NULL && current->isComplete) return match_word;
+            else if(current->child[pos]==NULL && !current->isComplete) return "";
+            else if(current->child[pos]!=NULL && current->isComplete) return match_word;
+            current = current->child[pos];   
+            match_word+=ch;
+        }
+        return match_word;
+    }
+   
+    string replaceWords(vector<string>& dictionary, string sentence) {
+        root = new Node();
+        for(string str:dictionary){
+            Node *current=root;
+            for(char ch:str){
+                int pos = ch-'a';
+                if(current->child[pos]==NULL) current->child[pos] = new Node();
+                current = current->child[pos];
+            }
+            current->isComplete=true;
+        }
+        vector<string> words;
+        int start=0;
+        for(auto i=0;i<sentence.length();i++){
+            if(sentence[i]==' ')
+            {
+                words.push_back(sentence.substr(start,i-start));
+                start = i+1;
+                // cout<<words[words.size()-1].length()<<" " <<words[words.size()-1]<<endl;
+            }
+        }
+         words.push_back(sentence.substr(start,sentence.length()-start+1));
+
+        string result;
+        for(auto i=0;i<words.size();i++){
+            if(search(words[i])!="")
+                result+=search(words[i]);
+            else
+                result+=words[i];
+            if(i!=words.size()-1)
+                result+=" ";
+        }
+        
+        return result;
+    }
+};

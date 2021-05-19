@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int countVowelStrings(int n) {
+    vector<int> dp(5,1);
+        // cout<<dp[0]<<dp[1]<<dp[2]<<endl;
+        for(int i = 0; i < n; i++){
+            for(int j = 1; j <5; j++){
+                dp[j] += dp[j-1];
+            }
+            // cout<<dp[4]<<endl;
+        }
+        return dp[4];
+    }
+};
+class Solution {
+public:
+    int result;
+    void helper(vector<char> & vowels, int n, int index, int count){
+        if(count==n){
+
+            result++;
+            return;
+        }
+        for(auto i=index;i<vowels.size();i++){
+
+            count++;
+            helper(vowels, n, i, count);
+            count--;
+
+        }
+    }
+    int countVowelStrings(int n) {
+        vector<char> vowels={'a','e','i','o','u'};
+        int count=0;
+        helper(vowels, n, 0, count);
+        return result;
+    }
+    
+};

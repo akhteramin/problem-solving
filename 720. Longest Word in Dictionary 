@@ -1,0 +1,48 @@
+class Solution {
+public:
+     typedef struct node{
+        struct node* child[26];
+        bool isComplete=false;
+    }Node;
+    Node *root;
+    void insert(string word){
+        Node *current = root;
+        for(char ch:word){
+            int pos = ch-'a';
+            if(current->child[pos]==NULL) current->child[pos] = new Node();
+            current = current->child[pos];
+        }
+        current->isComplete=true;
+    }
+    bool search(string word){
+        Node *current = root;
+        for(char ch:word){
+            int pos = ch-'a';
+            // if(current->child[pos]==NULL) return false;
+            // cout<<word<<" "<<current->isComplete<<endl;
+            
+            current = current->child[pos];
+            
+            if(current->isComplete==false) return false;
+        }
+        return true;
+    }
+    string longestWord(vector<string>& words) {
+        root = new Node();
+        sort(words.begin(), words.end());
+        string result;
+        int max_size=0;
+        for(string word: words){
+            insert(word);
+            
+        }
+        for(string word: words){
+            if(search(word) && word.size()>max_size){
+                result=word;
+                max_size = word.size();
+            }
+            // cout<<endl;
+        }
+        return result;
+    }
+};

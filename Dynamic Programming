@@ -1,12 +1,12 @@
 --------------------------------------------------Basic Concept------------------------------------------------
 Overlapping Subproblems:
 Like Divide and Conquer, Dynamic Programming combines solutions to sub-problems. Dynamic Programming is mainly used when solutions of same subproblems are needed again and again. In dynamic programming, computed solutions to subproblems are stored in a table so that these dont have to be recomputed. So dynamic programming is not usedyl when there are no common/overlapping subproblems because there is no point storing solutions if they are not needed again. 
-						fib(5)
+					  __fib(5)_____
                      /             \
                fib(4)                fib(3)
              /      \                /     \
-         fib(3)      fib(2)         fib(2)    fib(1)
-        /     \        /    \       /    \
+         fib(3)      fib(2)         fib(2)  fib(1)
+        /     \       /    \       /    \
   fib(2)   fib(1)  fib(1) fib(0) fib(1) fib(0)
   /    \
 fib(1) fib(0)

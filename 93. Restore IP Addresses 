@@ -1,0 +1,58 @@
+class Solution {
+public:
+    bool checkValid(string str){
+        
+        if(str.length()>3)
+            return false;
+        if(str.length()==3 && stoi(str)>255){
+            return false;
+        }
+        if(str.length()>1 && str[0]=='0')
+            return false;
+        return true;
+    }
+    vector<string> result;
+    void helper(string s, int index, vector<string>& ip){
+        if(ip.size()>=4){
+            
+            string ip_address;
+            for(auto i=0;i<ip.size();i++){
+                if(i==ip.size()-1)
+                    ip_address+=ip[i];
+                else
+                    ip_address+=ip[i]+'.';
+            }
+            if(ip_address.length()-3==s.length())
+                result.push_back(ip_address);
+            return;
+        }
+        for(int i=index;i<s.length();i++){
+            string str = s.substr(index,i-index+1);
+            if(checkValid(str)){
+                ip.push_back(str);
+                helper(s,i+1,ip);
+                ip.pop_back();
+            }
+            
+                
+        }
+    }
+    /// 
+    vector<string> restoreIpAddresses(string s) {
+        string str;
+        vector<string> ip;
+        if(s.length()>12 || s.length()<4)
+            return result;
+        for(int i=1;i<s.length();i++){
+            str = s.substr(0,i);
+            if(checkValid(str)){
+                ip.push_back(str);
+                 helper(s,i, ip);
+                ip.pop_back();
+            }
+               
+        }
+        
+        return result;
+    }
+};

@@ -1,0 +1,28 @@
+class Solution {
+public:
+
+    int lengthOfLongestSubstring(string s) {
+        int max_length=0, window_start=0;
+        int count_char[257]={0};
+        int last_index[257]={0};
+        if(s.length()<2){
+            return s.length();
+        }
+        for(auto window_end=0;window_end<s.length();window_end++){
+            count_char[s[window_end]]++;
+            
+            if(count_char[s[window_end]]>1 && last_index[s[window_end]]>=window_start){
+                window_start = last_index[s[window_end]]+1;
+                
+            }
+            last_index[s[window_end]] = window_end;
+            max_length = max(max_length, window_end-window_start+1);
+            // cout<<window_start<<" "<<window_end<<endl;
+        }
+        // cout<<endl;
+            
+        return max_length;
+        
+        
+    }
+};

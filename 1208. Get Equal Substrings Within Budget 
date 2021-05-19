@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int equalSubstring(string s, string t, int maxCost) {
+        int window_start=0, max_len=0;
+        int N=s.length(), M = t.length();
+        int current_cost=0;
+        for(auto window_end=0;window_end<min(N, M);window_end++){
+            current_cost+=abs(s[window_end]-t[window_end]);
+            if(current_cost>maxCost){
+                current_cost = current_cost-abs(s[window_start]-t[window_start]);
+                window_start++;
+            }
+            max_len = max(max_len,window_end-window_start+1);
+        }
+        return max_len;
+    }
+};

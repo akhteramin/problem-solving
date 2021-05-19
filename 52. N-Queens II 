@@ -1,0 +1,149 @@
+class Solution {
+public:
+    
+    vector<vector<string>> result;
+    bool isValid(int i, int j, vector<vector<int>> &chessBoard){
+        if(chessBoard[i][j]==0)
+            return true;
+        return false;
+    }
+    void fillBoard(vector<vector<int>> &chessBoard, int i,int j){
+        int r=i,c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r++][c]--;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+             
+                chessBoard[r++][c++]--;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+                
+                chessBoard[r][c++]--;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+           
+                chessBoard[r--][c]--;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r--][c--]--;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+             
+                chessBoard[r][c--]--;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+           
+                chessBoard[r++][c--]--;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r--][c++]--;
+        }
+        chessBoard[i][j]=1;
+        
+    }
+    void unfillBoard(vector<vector<int>> &chessBoard, int i,int j){
+        int r=i,c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r++][c]++;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+                
+                chessBoard[r++][c++]++;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+             
+                chessBoard[r][c++]++;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r--][c]++;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r--][c--]++;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r][c--]++;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r++][c--]++;
+        }
+        r=i;c=j;
+        while(r>=0 && c>=0 && r<chessBoard.size() && c<chessBoard.size()){
+            
+                chessBoard[r--][c++]++;
+        }
+        chessBoard[i][j]=1;
+        
+    }
+    void helper(int i, int j, vector<vector<int>> &chessBoard, vector<pair<int,int>> &countQ, vector<string> &Qmap){
+        
+        if(countQ.size()==chessBoard.size() ){
+          
+            if(find(result.begin(),result.end(),Qmap)==result.end())
+                result.push_back(Qmap);
+
+            return;
+        }
+        
+        for(auto j=0;j<chessBoard.size();j++){
+            if(isValid(i,j,chessBoard)){
+                countQ.push_back(make_pair(i,j));
+                chessBoard[i][j]=1;
+                Qmap[i][j]='Q';
+                fillBoard(chessBoard,i,j);
+                helper(i+1,j,chessBoard,countQ,Qmap);
+                unfillBoard(chessBoard,i,j);
+                Qmap[i][j]='.';
+                chessBoard[i][j]=0;
+                countQ.pop_back();
+            }
+
+                
+        }
+    }
+    int totalNQueens(int n) {
+        
+
+        int i=0;
+        for(auto j=0;j<n;j++){
+            vector<vector<int>> chessBoard(n, vector<int> (n, 0));
+            vector<string> Qmap(chessBoard.size(), string (chessBoard.size(), '.'));
+            vector<pair<int,int>> countQ;
+            if(isValid(i,j,chessBoard)){
+                countQ.push_back(make_pair(i,j));
+                chessBoard[i][j]=1;
+                Qmap[i][j]='Q';
+                fillBoard(chessBoard,i,j);
+                helper(i+1,j,chessBoard,countQ,Qmap);
+                
+            }
+        }
+
+
+
+        return result.size();
+        
+    }
+    
+};

@@ -1,0 +1,40 @@
+class Solution {
+public:
+     bool helper(int i,int j,vector<vector<char>> &board, string &word, int pos){
+        
+         if(pos>=word.length())
+         { 
+             return true;
+         }
+         if(i>=board.size() || j>=board[0].size() || i<0 || j<0 || board[i][j] != word[pos]){
+             return false;
+         }
+          
+        
+        board[i][j] = ' ';
+        bool isFound = helper( i + 1, j,board, word, pos + 1) 
+            || helper(i, j + 1,board, word, pos + 1 ) 
+            || helper(i - 1, j, board, word, pos + 1 ) 
+            || helper(i, j - 1, board, word, pos + 1 );
+        board[i][j] = word[pos];
+        return isFound;
+         
+     }
+    bool exist(vector<vector<char>>& board, string word) {
+        int pos=0;
+    
+        for(auto i=0;i<board.size();i++){
+            for(auto j=0;j<board[0].size();j++){
+                
+                if(helper(i,j,board,word,pos))
+                    return true;
+            }
+        }
+    
+        return false;
+    }
+
+};
+
+
+

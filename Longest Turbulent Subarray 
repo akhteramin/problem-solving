@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int maxTurbulenceSize(vector<int>& arr) {
+        //0 means less than previous one, 1 means greater than previous one
+        int window_start=0, turbulant=-1, result=0, max_len=0;
+        if(arr.size()<2)
+            return arr.size();
+        // else if(arr.size()<3 && arr[0]==arr[1])
+        //     return arr.size()-1;
+        // turbulant=arr[0]<arr[1]?1:turbulant;
+        for(auto window_end=1;window_end<arr.size();window_end++){
+            if(arr[window_end]==arr[window_end-1])
+            {
+                turbulant=-1;
+                window_start=window_end;
+            }
+            if((arr[window_end-1]<arr[window_end] && turbulant==1) || (arr[window_end-1]>arr[window_end] && turbulant==0)){
+                 window_start=window_end-1;
+            }
+            else if(arr[window_end-1]<arr[window_end] && turbulant!=1)
+            {
+                turbulant=1;
+            }
+            else if(arr[window_end-1]>arr[window_end] && turbulant!=0){
+                turbulant=0;
+            }
+            // cout<<window_start<<" "<<window_end<<endl;
+            max_len=max(max_len, window_end-window_start+1);
+        }
+        return max_len;
+    }
+};

@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+        vector<int> fill_index;
+        vector<int> ans;
+        for(auto i=0;i<boxes.length();i++){
+            if(boxes[i]=='1')
+                fill_index.push_back(i);
+        }
+        for(auto i=0;i<boxes.length();i++){
+            int sum_dist=0;
+            for(auto j=0;j<fill_index.size();j++){
+                sum_dist+=abs(fill_index[j]-i);
+            }
+            ans.push_back(sum_dist);
+        }
+        return ans;
+    }
+};

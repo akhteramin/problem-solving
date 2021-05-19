@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int findTheWinner(int n, int k) {
+        queue<int> qu;
+        int result;
+        int len=k;
+        for(int i=1;i<=n;i++){
+            qu.push(i);
+        }
+        int i=0;
+        while(qu.size()>1){
+            i++;
+            if(i==k){
+                qu.pop();
+                i=0;
+            }
+            else{
+                int tempo=qu.front();
+                qu.pop();
+                qu.push(tempo);
+            }
+            
+        }
+        return qu.front();
+    }
+};

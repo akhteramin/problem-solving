@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maximumPopulation(vector<vector<int>>& logs) {
+        int total_count=0, result=0;
+        sort(logs.begin(),logs.end());
+        for(auto i=0;i<logs.size();i++){
+            int temp_count=0;
+            for(auto j=0;j<logs.size();j++){
+                if(logs[i][0]>=logs[j][0] && logs[i][0]<logs[j][1])
+                    temp_count++;
+            }
+            if(temp_count>total_count){
+                total_count=temp_count;
+                result = logs[i][0];
+            }
+                
+        }
+        // cout<<total_count<<endl;
+        return result;
+    }
+};

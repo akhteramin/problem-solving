@@ -1,0 +1,55 @@
+class Trie {
+public:
+    /** Initialize your data structure here. */
+     typedef struct node{
+        struct node* child[26];
+        bool isComplete = false;
+    }Node;
+    
+    /** Initializing the root variable. */ 
+    Node* root;
+    
+    /** Initialize your data structure here. */    
+    Trie() {
+        root = new Node();
+    }
+    
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+       Node* current = root;
+       for(char ch:word){
+           if(current->child[ch-'a']==NULL) current->child[ch-'a'] = new Node();
+           current = current->child[ch-'a'];
+       }
+        current->isComplete=true;
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+       Node* current = root;
+       for(char ch:word){
+          if(current->child[ch-'a']==NULL) return false;
+          current = current->child[ch-'a'];
+           
+       }
+        return current->isComplete;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+       Node* current = root;
+       for(char ch:prefix){
+           if(current->child[ch-'a']==NULL) return false;
+           current = current->child[ch-'a'];
+       }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */

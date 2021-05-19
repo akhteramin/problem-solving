@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int matrixScore(vector<vector<int>>& A) {
+        
+        int R = A.size(), C = A[0].size();
+        int ans = 0;
+        
+        int col = 0;
+        for (int r = 0; r < R; ++r){
+           if(A[r][0]==0){
+                for(int c=0;c<C;c++){
+                    A[r][c]^=1;
+                }
+           }
+        }
+        // int one_count[C] = {0};
+        for(int c = 0; c<C;c++){
+            int count=0;
+            for(int r=0;r<R;r++){
+                count+=A[r][c];
+            }
+            if(count<=R/2){
+                for(int r=0;r<R;r++){
+                     A[r][c]^=1;
+                }
+            }
+        }
+        
+        for(int r=0;r<R;r++){
+            for(int c=0;c<C;c++){
+                // cout<<A[r][c]<<" ";
+                ans+=A[r][c]*pow(2,C-c-1);
+            }
+            // cout<<endl;
+        }
+        return ans;
+    
+    }
+};

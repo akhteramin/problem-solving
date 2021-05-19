@@ -1,0 +1,40 @@
+#include<string.h>
+class Solution {
+public:
+    string reverseWords(string s) {
+        
+        vector<pair<int,int>> space_pos;
+        stack<string> ans;
+        string result;
+        for(auto k=0;k<s.size();k++){
+            
+            if(s[k]!=' ')
+            {
+                int start_word=k,end_word=k;
+                while(k!=s.size()-1 && s[k+1]!=' ')
+                    k++;
+                end_word=k;
+                // cout<<start_word<<" "<<end_word<<endl;
+                
+                string word = s.substr(start_word,end_word-start_word+1);
+                // cout<<word<<endl;
+                ans.push(word);
+            }
+            
+                
+        }
+        
+
+        while(!ans.empty()){
+            string word = ans.top();
+            ans.pop();
+            if(ans.empty())
+            {
+                result+=word;
+                break;
+            }
+            result+=word+' ';
+        }
+        return result;
+    }
+};

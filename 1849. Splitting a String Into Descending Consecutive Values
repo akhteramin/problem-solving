@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void helper(string s, int index, unsigned long long target, bool &flag)
+    {
+       // cout<<s<<endl;
+        if(stoull(s)==target){
+            flag =true; return;
+        }
+
+        for(int i=1;i<s.length();i++){
+            unsigned long long left = stoull(s.substr(0,i));
+            if(left==target)
+            {
+                // cout<<s.substr(0,i)<<endl;
+                helper(s.substr(i),i, left-1,flag);
+            }
+                
+        }
+    }
+    bool splitString(string s) {
+        bool flag=false;
+        for(int i=1;i<s.length();i++){
+            // cout<<"left>> "<<s.substr(0,i)<<endl;
+            unsigned long long left = stoull(s.substr(0,i));
+            helper(s.substr(i),i,left-1,flag);
+        }
+        // cout<<flag<<endl;
+        return flag;
+    }
+};
